@@ -30,14 +30,25 @@ if (isset($_SESSION['UserID'])) {
 </head>
 
 <body>
-    <h2>Properties for Rent or Sale:</h2>
-<a href="../logout.php"></a>
+    <a href="../logout.php">logout</a>
+    <a href="manage_properties.php">Manage Properties</a>
+    <h2>Dashboard</h2>
+    
     <div class='grid grid-cols-3 gap-4'> <!-- Adjust 'grid-cols' based on the number of properties you want per row -->
         <?php
         while ($property = mysqli_fetch_assoc($result)) {
             // Display property details without editing features
             echo "<div class='card bg-base-100 shadow-xl'>";
-            // Display property images dynamically (similar to previous code)
+            echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-96 h-64'>";
+
+            $propertyID = $property['PropertyID'];
+            $imageQuery = "SELECT ImageURL FROM PropertyImages WHERE PropertyID = '$propertyID'";
+            $imageResult = mysqli_query($connection, $imageQuery);
+
+            while ($image = mysqli_fetch_assoc($imageResult)) {
+                echo "<figure><img class='max-w-none max-h-none' src='" . $image['ImageURL'] . "' alt='Property Image'></figure>";
+            }
+
             // Display property details (title, price, location, etc.)
             echo "<div class='card-body'>";
             echo "<h2 class='card-title'>" . $property['Title'] . "</h2>";
