@@ -46,6 +46,7 @@ if (isset($_SESSION['UserID']) && isset($_GET['property_id'])) {
     </form>
 
     <a href="manage_properties.php">Back to Manage Properties</a>
+    
 </body>
 
 </html>

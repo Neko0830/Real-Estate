@@ -20,41 +20,66 @@ if (isset($_SESSION['UserID'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <title>Manage Properties</title>
-    <link rel="stylesheet" href="../../dist/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 </head>
 
 <body>
+    <a href="add_property.php">Add More Properties</a>
+    <a href="dashboard.php">Dashboard</a>
+
     <h2>Your Listed Properties:</h2>
-    <ul>
+
+    <div class='grid grid-cols-3 gap-4'> <!-- Adjust 'grid-cols' based on the number of properties you want per row -->
         <?php
         while ($property = mysqli_fetch_assoc($result)) {
-            echo "<li>";
-            echo "<h3>" . $property['Title'] . "</h3>";
+            echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-96 h-64'>";
+
+
+            // Fetch property images from the database for each property
+            $propertyID = $property['PropertyID'];
+            $imageQuery = "SELECT ImageURL FROM PropertyImages WHERE PropertyID = '$propertyID'";
+            $imageResult = mysqli_query($connection, $imageQuery);
+
+            while ($image = mysqli_fetch_assoc($imageResult)) {
+                echo "<figure><img class='max-w-none max-h-none' src='" . $image['ImageURL'] . "' alt='Property Image'></figure>";
+            }
+
+
+
+
+            echo "<div class='card-body'>";
+            echo "<h2 class='card-title'>" . $property['Title'] . "</h2>";
             // Display other property details as needed
 
             // Link to view/edit property (Replace 'edit_property.php' with your edit property page)
-            echo "<a href='edit_property.php?property_id=" . $property['PropertyID'] . "'>Edit</a> | ";
-            
+            echo "<div class='card-actions justify-end'>";
+            echo "<button class='btn btn-primary btn-outline btn-sm' href='edit_property.php?property_id=" . $property['PropertyID'] . "'>Edit Details</button> ";
+            echo "<button class='btn btn-primary btn-outline btn-sm' href='handle_image_upload.php?property_id=" . $property['PropertyID'] . "'>Upload Images</button></div>";
             // Form to delete property
             echo '<form action="delete_property.php" method="POST">';
             echo '<input type="hidden" name="property_id" value="' . $property['PropertyID'] . '">';
-            echo '<button type="submit" name="delete_property">Delete</button>';
+            echo "<div class='card-actions justify-end'>";
+            echo '<a class="btn btn-error btn-xs mt-24 text-error"type="submit" name="delete_property">Delete</a>';
             echo '</form>';
+            echo "</div>";
             
-            echo "</li>";
+            
+            
+            echo "</div>";
+            echo "</div>";
+            
         }
         ?>
-    </ul>
+    </div>
 
     <!-- Link to add more properties -->
-    <a href="add_property.php">Add More Properties</a>
-
-    <a href="dashboard.php">Back to Dashboard</a>
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 
 </html>
