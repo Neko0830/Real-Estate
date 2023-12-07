@@ -25,15 +25,18 @@ if (isset($_SESSION['UserID'])) {
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../dist/output.css">
     <!-- Other CSS and JS links as needed -->
 </head>
 
 <body>
-    <a href="../logout.php">logout</a>
-    <a href="manage_properties.php">Manage Properties</a>
-    <h2>Dashboard</h2>
-    
+    <div class='navbar flex justify-between'>
+        <button class='btn btn-ghost'>Dashboard</button>
+        <ul class="flex">
+            <li><a class="btn btn-sm btn-outline btn-primary" href="manage_properties.php">Manage Properties</a></li>
+            <li><a class="btn btn-sm btn-outline btn-ghost" href="../logout.php">logout</a></li>
+        </ul>
+    </div>
     <div class='grid grid-cols-3 gap-4'> <!-- Adjust 'grid-cols' based on the number of properties you want per row -->
         <?php
         while ($property = mysqli_fetch_assoc($result)) {

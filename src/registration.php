@@ -27,11 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-    <link rel="stylesheet" href="../../dist/output.css">
+    <link rel="stylesheet" href="../dist/output.css">
 </head>
 
 <body>
-    <h2>Registration</h2>
+    
+    <div class="card">
+    <div class="card-body">
+    <div class="card-title"><h2>Registration</h2></div>
     <form action="registration.php" method="POST">
         <label for="fullname">Full Name:</label><br>
         <input type="text" id="fullname" name="fullname" required><br><br>
@@ -44,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <input class="btn btn-accent p-6 btn-outline" type="submit" value="Register">
     </form>
+    </div>
+    </div>
 </body>
 
 </html>

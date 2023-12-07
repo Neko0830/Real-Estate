@@ -8,7 +8,7 @@
 </head>
 <?php include "loader.php" ?>
 <div class="content-container">
-    <a href="login.php">login</a>
-    <a href="registration.php">Register</a>
+    <a class="btn btn-outline btn-primary" href="login.php">Login</a>
+    <a class="btn btn-outline btn-secondary"href="registration.php">Register</a>
 </div>
 </html>

@@ -26,7 +26,7 @@ if (isset($_SESSION['UserID'])) {
     <meta charset="UTF-8">
     <title>Manage Properties</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
 </head>
 
 <body>
