@@ -6,8 +6,8 @@ if (isset($_SESSION['UserID']) && isset($_GET['property_id'])) {
     $userID = $_SESSION['UserID'];
     $propertyID = $_GET['property_id'];
 
-    // Fetch property details based on PropertyID and UserID
-    $sql = "SELECT * FROM Properties WHERE PropertyID = '$propertyID' AND UserID = '$userID'";
+    // Fetch property details based on property_id and UserID
+    $sql = "SELECT * FROM Properties WHERE property_id = '$propertyID' AND admin_id = '$userID'";
     $result = mysqli_query($connection, $sql);
 
     if (!$result) {
@@ -34,11 +34,11 @@ if (isset($_SESSION['UserID']) && isset($_GET['property_id'])) {
 <body>
     <h2>Edit Property</h2>
     <form action="update_property.php" method="POST">
-        <input type="hidden" name="property_id" value="<?php echo $property['PropertyID']; ?>">
+        <input type="hidden" name="property_id" value="<?php echo $property['property_id']; ?>">
 
         <!-- Editable fields (e.g., title, description, price, etc.) -->
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="<?php echo $property['Title']; ?>" required><br><br>
+        <input type="text" id="title" name="title" value="<?php echo $property['property_name']; ?>" required><br><br>
 
         <!-- Add other property fields for editing -->
 

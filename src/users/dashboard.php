@@ -6,7 +6,7 @@ if (isset($_SESSION['UserID'])) {
     $userID = $_SESSION['UserID'];
 
     // Fetch properties except those belonging to the logged-in user
-    $sql = "SELECT * FROM Properties WHERE UserID != '$userID'";
+    $sql = "SELECT * FROM Properties";
     $result = mysqli_query($connection, $sql);
 
     if (!$result) {
@@ -26,49 +26,63 @@ if (isset($_SESSION['UserID'])) {
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../../dist/output.css">
-    <!-- Other CSS and JS links as needed -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <div class='navbar flex justify-between'>
-        <button class='btn btn-ghost'>Dashboard</button>
-        <ul class="flex">
-            <li><a class="btn btn-sm btn-outline btn-primary" href="manage_properties.php">Manage Properties</a></li>
-            <li><a class="btn btn-sm btn-outline btn-ghost" href="../logout.php">logout</a></li>
+    <div class='navbar justify-between'>
+        <a href="dashboard.php">Dashboard</a>
+        <ul>
+            <li><a class='underline' href="../logout.php">Logout</a><li>
         </ul>
     </div>
-    <div class='grid grid-cols-3 gap-4'> <!-- Adjust 'grid-cols' based on the number of properties you want per row -->
+    
+    <h2>Listed Properties:</h2>
+
+    <div class='grid grid-cols-3 gap-2'>
         <?php
         while ($property = mysqli_fetch_assoc($result)) {
-            // Display property details without editing features
-            echo "<div class='card bg-base-100 shadow-xl'>";
-            echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-96 h-64'>";
-
-            $propertyID = $property['PropertyID'];
-            $imageQuery = "SELECT ImageURL FROM PropertyImages WHERE PropertyID = '$propertyID'";
+            echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-80 h-48 ml-10 mt-6'>";
+            $property_id = $property['property_id'];
+            $imageQuery = "SELECT Image_URL FROM PropertyImages WHERE property_id = '$property_id'";
             $imageResult = mysqli_query($connection, $imageQuery);
 
+            echo "<div class='card-body p-3'>";
+
+            echo '<div class="carousel w-80 h-48">';
+            $i = 0;
             while ($image = mysqli_fetch_assoc($imageResult)) {
-                echo "<figure><img class='max-w-none max-h-none' src='" . $image['ImageURL'] . "' alt='Property Image'></figure>";
+                echo "<div class='carousel-item'>";
+                echo "<figure class='w-80 h-max object-cover'>";
+                echo "<img class='rounded-lg' src='" . $image['Image_URL'] . "' alt='Property Image'>";
+                echo "</figure>";
+
+                if ($i === 0) {
+                    echo '<div class="">';
+                    echo '<span class="tooltip tooltip-bottom" data-tip="Property 1 of ' . mysqli_num_rows($imageResult) . '"></span>';
+                    echo '</div>';
+                }
+                echo "</div>";
+                $i++;
             }
+            echo '</div>';
 
-            // Display property details (title, price, location, etc.)
-            echo "<div class='card-body'>";
-            echo "<h2 class='card-title'>" . $property['Title'] . "</h2>";
+            echo "<h2>" . $property['property_name'] . "</h2>";
             // Display other property details as needed
+            echo "<p class='px-3 pt-2 mb-4'>" . $property['description'] . "</p>";
 
-            // Link to view property details
+            // Link to view/edit property
             echo "<div class='card-actions justify-end'>";
-            echo "<a class='btn btn-primary btn-outline btn-sm' href='view_property.php?property_id=" . $property['PropertyID'] . "'>View Details</a></div> ";
+            echo "<a class='btn btn-primary'href='check_details.php'>"."Check Details</a>";
+            echo "</div>";
             echo "</div>";
             echo "</div>";
         }
         ?>
     </div>
 
-    <!-- Other features for inquiries, browsing, etc. -->
-
-    <!-- Link to go back to the homepage or other pages -->
+    <!-- Link to add more properties -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 
 </html>

@@ -7,25 +7,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM Users WHERE Email = '$email'";
-    $result = mysqli_query($connection, $sql);
+    // Check if the login is for an admin
+    $sqlAdmin = "SELECT * FROM Admins WHERE Email = '$email'";
+    $resultAdmin = mysqli_query($connection, $sqlAdmin);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row['Password'])) {
-            $_SESSION['UserID'] = $row['UserID'];
-            if ($email === 'admin') {
-                header("Location: /admin/dashboard.php");
-                exit();
-            } else {
-                header("Location: users/dashboard.php");
-                exit();
-            }
+    if ($resultAdmin && mysqli_num_rows($resultAdmin) > 0) {
+        $rowAdmin = mysqli_fetch_assoc($resultAdmin);
+        if (password_verify($password, $rowAdmin['password'])) {
+            $_SESSION['AdminID'] = $rowAdmin['admin_id'];
+            header("Location: admin/dashboard.php");
+            exit();
         } else {
-            echo "Incorrect password";
+            echo "Incorrect admin password";
         }
     } else {
-        echo "User not found";
+        // For regular users
+        $sqlUser = "SELECT * FROM Users WHERE Email = '$email'";
+        $resultUser = mysqli_query($connection, $sqlUser);
+
+        if ($resultUser && mysqli_num_rows($resultUser) > 0) {
+            $rowUser = mysqli_fetch_assoc($resultUser);
+            if (password_verify($password, $rowUser['password'])) {
+                $_SESSION['UserID'] = $rowUser['user_id'];
+                header("Location: users/dashboard.php");
+                exit();
+            } else {
+                echo "Incorrect password";
+            }
+        } else {
+            echo "User not found";
+        }
     }
 }
 ?>
@@ -40,20 +51,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    
     <div class="card">
         <div class="card-body">
             <div class="card-title"><h2>Login</h2></div>
-    <form action="login.php" method="POST">
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" required><br><br>
+            <form action="login.php" method="POST">
+                <label for="email">Email:</label><br>
+                <input type="text" id="email" name="email" required><br><br>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
 
-        <input class="btn btn-accent btn-outline" type="submit" value="Login">
-    </form>
-    </div>
+                <input class="btn btn-accent btn-outline" type="submit" value="Login">
+            </form>
+        </div>
     </div>
 </body>
 

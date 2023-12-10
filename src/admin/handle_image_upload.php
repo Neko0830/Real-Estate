@@ -2,17 +2,17 @@
 session_start();
 @include "../conn.php";
 
-$propertyID = null; // Initialize $propertyID variable
+$property_id = null; // Initialize $property_id variable
 
 if (isset($_GET['property_id'])) {
-    $propertyID = $_GET['property_id'];
+    $property_id = $_GET['property_id'];
 
     // Verify if the property exists in the database
-    $propertySQL = "SELECT Title FROM Properties WHERE PropertyID = '$propertyID'";
+    $propertySQL = "SELECT property_name FROM Properties WHERE property_id = '$property_id'";
     $propertyResult = mysqli_query($connection, $propertySQL);
 
     if ($propertyData = mysqli_fetch_assoc($propertyResult)) {
-        $propertyTitle = $propertyData['Title'];
+        $propertyTitle = $propertyData['property_name'];
     } else {
         $propertyTitle = "Property Not Found";
     }
@@ -21,11 +21,11 @@ if (isset($_GET['property_id'])) {
 // Handle image upload and insertion into the database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['property_id'])) {
-        $propertyID = $_POST['property_id']; // Use the POST data if available
+        $property_id = $_POST['property_id']; // Use the POST data if available
     }
 
-    // Check if $propertyID is still null or invalid
-    if ($propertyID === null || !is_numeric($propertyID)) {
+    // Check if $property_id is still null or invalid
+    if ($property_id === null || !is_numeric($property_id)) {
         echo "Invalid property ID.";
         exit;
     }
@@ -43,9 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         move_uploaded_file($imageTmpName, $imagePath);
 
         // Insert image path into the PropertyImages table
-        $insertSQL = "INSERT INTO PropertyImages (PropertyID, ImageURL) VALUES ('$propertyID', '$imagePath')";
+        $insertSQL = "INSERT INTO PropertyImages (property_id, Image_URL) VALUES ('$property_id', '$imagePath')";
         if (mysqli_query($connection, $insertSQL)) {
             echo "Image uploaded and added to the database.";
+            header("Location: manage_properties.php");
         } else {
             echo "Error: " . mysqli_error($connection);
         }
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <form action="handle_image_upload.php" method="POST" enctype="multipart/form-data">
         <label for="property_id">Property ID:</label>
-        <input  class="disabled:opacity-75" type="text" id="property_id" name="property_id" value="<?php echo $propertyID; ?>" readonly><br><br>
+        <input  class="disabled:opacity-75" type="text" id="property_id" name="property_id" value="<?php echo $property_id; ?>" readonly><br><br>
 
         <label for="property_title">Property Title:</label>
         <input  type="text" id="property_title" name="title" value="<?php echo $propertyTitle ?? ''; ?>" readonly><br><br>

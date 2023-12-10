@@ -11,7 +11,7 @@ if (isset($_SESSION['UserID'])) {
         // Add other form fields and validation as needed
 
         // Insert new property into the database
-        $insertSQL = "INSERT INTO Properties (UserID, Title, Description) VALUES ('$userID', '$title', '$description')";
+        $insertSQL = "INSERT INTO Properties (admin_id, property_name, Description) VALUES ('$userID', '$title', '$description')";
         if (mysqli_query($connection, $insertSQL)) {
             // Redirect to manage properties after successful addition
             header("Location: manage_properties.php");
