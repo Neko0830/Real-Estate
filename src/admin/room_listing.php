@@ -39,7 +39,9 @@ $rooms = mysqli_fetch_all($resultRooms, MYSQLI_ASSOC);
     <title>Rooms</title>
     <link rel="stylesheet" href="../../dist/output.css">
 </head>
-
+<?php
+@include 'partials/header.php';
+?>
 <body>
     <h1>Rooms List</h1>
     <table class="table">

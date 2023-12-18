@@ -30,12 +30,9 @@ if (isset($_SESSION['UserID'])) {
 </head>
 
 <body>
-    <div class='navbar justify-between'>
-        <a href="dashboard.php">Dashboard</a>
-        <ul>
-            <li><a class='underline' href="../logout.php">Logout</a><li>
-        </ul>
-    </div>
+    <?php
+    include 'header.html';
+    ?>
     
     <h2>Listed Properties:</h2>
 
@@ -48,7 +45,6 @@ if (isset($_SESSION['UserID'])) {
             $imageResult = mysqli_query($connection, $imageQuery);
 
             echo "<div class='card-body p-3'>";
-
             echo '<div class="carousel w-80 h-48">';
             $i = 0;
             while ($image = mysqli_fetch_assoc($imageResult)) {
@@ -73,7 +69,7 @@ if (isset($_SESSION['UserID'])) {
 
             // Link to view/edit property
             echo "<div class='card-actions justify-end'>";
-            echo "<a class='btn btn-primary'href='check_details.php'>"."Check Details</a>";
+            echo "<a class='btn btn-primary' href='check_details.php?property_id=" . $property['property_id'] . "'>"."Check Details</a>";
             echo "</div>";
             echo "</div>";
             echo "</div>";

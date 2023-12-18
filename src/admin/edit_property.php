@@ -36,11 +36,26 @@ if (isset($_SESSION['UserID']) && isset($_GET['property_id'])) {
     <form action="update_property.php" method="POST">
         <input type="hidden" name="property_id" value="<?php echo $property['property_id']; ?>">
 
-        <!-- Editable fields (e.g., title, description, price, etc.) -->
+        <!-- Editable fields -->
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title" value="<?php echo $property['property_name']; ?>" required><br><br>
 
-        <!-- Add other property fields for editing -->
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address" value="<?php echo $property['address']; ?>" required><br><br>
+
+        <label for="city">City:</label><br>
+        <input type="text" id="city" name="city" value="<?php echo $property['city']; ?>" required><br><br>
+
+        <label for="state">State:</label><br>
+        <input type="text" id="state" name="state" value="<?php echo $property['state']; ?>" required><br><br>
+
+        <label for="country">Country:</label><br>
+        <input type="text" id="country" name="country" value="<?php echo $property['country']; ?>" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" required><?php echo $property['description']; ?></textarea><br><br>
+
+        <!-- Other property details you want to edit -->
 
         <input type="submit" value="Save Changes">
     </form>

@@ -26,13 +26,22 @@ if (isset($_SESSION['UserID'])) {
     <meta charset="UTF-8">
     <title>Manage Properties</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
-    
 </head>
 
 <body>
-    <a href="dashboard.php">Dashboard</a>
-    <a href="add_property.php">Add More Properties</a>
-
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">RentEase</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="add_property.php">Add Property</a></li>
+      <li>
+        <a class='underline'href="../../logout.php">Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>
     <h2>Your Listed Properties:</h2>
 
     <div class='grid grid-cols-3 gap-2'> <!-- Adjust 'grid-cols' based on the number of properties you want per row -->
