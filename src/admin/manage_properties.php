@@ -2,8 +2,8 @@
 session_start();
 @include "../conn.php";
 
-if (isset($_SESSION['UserID'])) {
-    $userID = $_SESSION['UserID'];
+if (isset($_SESSION['AdminID'])) {
+    $userID = $_SESSION['AdminID'];
 
     // Fetch user's properties based on UserID
     $sql = "SELECT * FROM Properties WHERE admin_id = '$userID'";
@@ -25,29 +25,18 @@ if (isset($_SESSION['UserID'])) {
 <head>
     <meta charset="UTF-8">
     <title>Manage Properties</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../dist/output.css">
 </head>
 
 <body>
-<div class="navbar bg-base-100">
-  <div class="flex-1">
-    <a class="btn btn-ghost text-xl">RentEase</a>
-  </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="add_property.php">Add Property</a></li>
-      <li>
-        <a class='underline'href="../../logout.php">Logout</a>
-      </li>
-    </ul>
-  </div>
-</div>
-    <h2>Your Listed Properties:</h2>
 
-    <div class='grid grid-cols-3 gap-2'> <!-- Adjust 'grid-cols' based on the number of properties you want per row -->
+
+    <h2 class='text-lg font-semibold mb-4 indent-5'>Your Listed Properties:</h2>
+
+    <div class='grid grid-cols-3 gap-3 ml-14 gap-y-48'>
     <?php
 while ($property = mysqli_fetch_assoc($result)) {
-    echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-80 h-48'>";
+    echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-80 mb-6'>";
 
     // Fetch property images
     $property_id = $property['property_id'];
@@ -56,11 +45,11 @@ while ($property = mysqli_fetch_assoc($result)) {
 
     echo "<div class='card-body p-3'>";
 
-    echo '<div class="carousel w-80 h-48">';
+    echo '<div class="carousel w-80">';
     $i = 0;
     while ($image = mysqli_fetch_assoc($imageResult)) {
         echo "<div class='carousel-item'>";
-        echo "<figure class='w-80 h-max object-cover'>";
+        echo "<figure class='w-80'>";
         echo "<img class='rounded-lg' src='" . $image['Image_URL'] . "' alt='Property Image'>";
         echo "</figure>";
 
@@ -77,7 +66,7 @@ while ($property = mysqli_fetch_assoc($result)) {
 
     echo "<h2>" . $property['property_name'] . "</h2>";
     // Display other property details as needed
-    echo "<p class='px-3 pt-2 mb-4'>" . $property['description'] . "</p>";
+    echo "<p class='px-3 pt-2 '>" . $property['description'] . "</p>";
 
     // Link to view/edit property
     echo "<div class='card-actions justify-end'>";
@@ -86,7 +75,7 @@ while ($property = mysqli_fetch_assoc($result)) {
     echo '<form action="delete_property.php" method="POST">';
     echo '<input type="hidden" name="property_id" value="' . $property['property_id'] . '">';
     echo "<div class='card-actions justify-end'>";
-    echo '<input class="btn btn-error btn-xs text-error" type="submit" name="delete_property" value="Delete">';
+    echo '<input class="btn btn-error btn-outline btn-xs" type="submit" name="delete_property" value="Delete">';
     echo '</form>';
     echo "</div>";
 

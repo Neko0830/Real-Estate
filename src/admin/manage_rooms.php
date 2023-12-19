@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = floatval($_POST['price']);
     $size = intval($_POST['size']);
     $availability = boolval($_POST['availability']);
-    $image = $_POST['image'];
     $description = $_POST['description'];
 
     // Check if room exists
@@ -75,17 +74,18 @@ if ($id) {
 
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $id ? 'Edit Room' : 'Add Room'; ?></title>
+    <title>Manage Rooms</title>
     <link rel="stylesheet" href="../../dist/output.css">
 </head>
-<?php include 'partials/header.php';?>
+<?php include 'partials/header.php'; ?>
+
 <body>
-    <h1><?php echo $id ? 'Edit Room' : 'Add Room'; ?></h1>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <h1>Add/Edit Rooms</h1>
+    <form class='form-control' action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <div class="mt-4">
-            <label for="id">Property:</label>
-            <input type="hidden" name="id" value="<?php echo $room['room_id']; ?>">
-            <select name="property_id" id="property_id">
+            <label class='label-text' for="id">Property:</label>
+            <input class='input input-bordered bg-slate-700 text-slate-100' type="hidden" name="id" value="<?php echo $room['room_id']; ?>">
+            <select class='select select-bordered bg-slate-700' name="property_id" id="property_id">
                 <?php
                 // List properties owned by the logged-in user
                 $sql = "SELECT * FROM properties WHERE admin_id = ?";
@@ -99,8 +99,8 @@ if ($id) {
         </div>
         <br>
         <div class="mt-2">
-            <label for="type">Room Type:</label>
-            <select name="type" id="type">
+            <label class='label-text' for="type">Room Type:</label>
+            <select class='select select-bordered bg-slate-700' name="type" id="type">
                 <option value="Single" <?php if ($room['type'] === "Single") echo "selected"; ?>>Single Room</option>
                 <option value="Double" <?php if ($room['type'] === "Double") echo "selected"; ?>>Double Room</option>
                 <option value="Family Suite" <?php if ($room['type'] === "Family Suite") echo "selected"; ?>>Family Suite</option>
@@ -110,38 +110,38 @@ if ($id) {
             <br>
         </div>
         <div class="mt-4">
-            <label for="price">Price (Daily)</label>
-            <input required type="number" name="price" id="price" step="0.01" value="<?php echo $room['price']; ?>"><br>
+            <label class='label-text' for="price">Price (Daily)</label>
+            <input class='input input-bordered bg-slate-700 text-slate-100' required type="number" name="price" id="price" step="0.01" value="<?php echo $room['price']; ?>"><br>
         </div>
         <br>
         <div class="mt-4">
-            <label for="size">Size (m²):</label>
-            <input type="number" name="size" id="size" value="<?php echo $room['size']; ?>">
+            <label class='label-text' for="size">Size (m²):</label>
+            <input class='input input-bordered bg-slate-700 text-slate-100' type="number" name="size" id="size" value="<?php echo $room['size']; ?>">
             <br>
             <br>
         </div>
         <div class="mt-4">
-            <label for="room_number">Room Number:</label>
-            <input required type="number" name="room_number" id="room_number" value="<?php echo $room['room_number']; ?>">
+            <div class='label label-text'>
+                <label><span class="label-text-alt">Input Existing Room  To Edit</span></label>
+            </div>
+            <label class='label-text' for="room_number">Room Number:</label>
+            <input class='input input-bordered bg-slate-700 text-slate-100' required type="number" name="room_number" id="room_number">
         </div>
         <br>
         <div class="mt-4">
-            <label for="availability">Is Available?</label>
-            <input type="checkbox" name="availability" id="availability" <?php if ($room['availability']) : ?>checked<?php endif; ?>>
+            <label class='cursor-pointer-label'>
+                <span class='label-text' for="availability">Is Available?</span>
+                <input class='checkbox checkbox-secondary align-middle bg-slate-700 text-slate-100' type="checkbox" name="availability" id="availability" <?php if ($room['availability']) : ?>checked<?php endif; ?>>
+            </label>
         </div>
         <br>
         <div class="mt-4">
-            <label for="image">Image URL:</label>
-            <input type="text" name="image" id="image" value="<?php echo $room['image']; ?>">
+            <label class='label-text' for="description">Description:</label><br>
+            <textarea class='textarea textarea-primary' name="description" id="description"><?php echo $room['description']; ?></textarea>
         </div>
-        <br>
-        <div class="mt-4">
-            <label for="description">Description:</label><br>
-            <textarea name="description" id="description"><?php echo $room['description']; ?></textarea>
-        </div>
-        <button class='btn btn-primary'type="submit"><?php echo $id ? 'Update' : 'Add'; ?> Room</button>
+        <button class='btn btn-primary w-96' type="submit"><?php echo $id ? 'Update' : 'Add'; ?> Room</button>
     </form>
-    
+
 </body>
 
 </html>

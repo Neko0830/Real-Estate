@@ -51,19 +51,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="card">
+    <div class="w-full container flex justify-center m-auto">
+    <div class="card w-96 shadow-lg">
         <div class="card-body">
             <div class="card-title"><h2>Login</h2></div>
             <form action="login.php" method="POST">
                 <label for="email">Email:</label><br>
-                <input type="text" id="email" name="email" required><br><br>
+                <input class='input input-bordered w-full bg-slate-700 text-slate-100' type="text" id="email" name="email" required><br><br>
 
                 <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" required><br><br>
+                <input class='input input-bordered w-full bg-slate-700 text-slate-100' type="password" id="password" name="password" required><br><br>
 
-                <input class="btn btn-accent btn-outline" type="submit" value="Login">
+                <input class="btn w-full btn-accent btn-outline" type="submit" value="Login">
             </form>
         </div>
+    </div>
     </div>
 </body>
 

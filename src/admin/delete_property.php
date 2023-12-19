@@ -14,7 +14,7 @@ if (isset($_POST['property_id'])) {
         $deletePropertySQL = "DELETE FROM Properties WHERE property_id = '$propertyID'";
         if (mysqli_query($connection, $deletePropertySQL)) {
             echo "Property and associated images deleted successfully.";
-            header("location: manage_properties.php");
+            header("location: dashboard.php");
         } else {
             echo "Error deleting property: " . mysqli_error($connection);
         }

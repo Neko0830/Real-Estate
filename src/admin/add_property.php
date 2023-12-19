@@ -14,7 +14,7 @@ if (isset($_SESSION['UserID'])) {
         $insertSQL = "INSERT INTO Properties (admin_id, property_name, Description) VALUES ('$userID', '$title', '$description')";
         if (mysqli_query($connection, $insertSQL)) {
             // Redirect to manage properties after successful addition
-            header("Location: manage_properties.php");
+            header("Location: dashboard.php");
             exit();
         } else {
             echo "Error adding property: " . mysqli_error($connection);
@@ -35,7 +35,9 @@ if (isset($_SESSION['UserID'])) {
     <title>Add Property</title>
     <link rel="stylesheet" href="../../dist/output.css">
 </head>
-
+<?php
+include 'partials/header.php';
+?>
 <body>
     <h2>Add New Property</h2>
     <form action="add_property.php" method="POST">
@@ -47,11 +49,10 @@ if (isset($_SESSION['UserID'])) {
 
         <!-- Add other property details input fields here -->
 
-        <input type="submit" value="Add Property">
+        <input class='btn btn-primary'type="submit" value="Add Property">
     </form>
 
-    <a href="manage_properties.php">Back to Manage Properties</a>
-    <a href="dashboard.php">Back to Dashboard</a>
+    
 </body>
 
 </html>

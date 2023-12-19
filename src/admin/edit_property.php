@@ -33,7 +33,7 @@ if (isset($_SESSION['UserID']) && isset($_GET['property_id'])) {
 
 <body>
     <h2>Edit Property</h2>
-    <form action="update_property.php" method="POST">
+    <form class='mb-4 'action="update_property.php" method="POST">
         <input type="hidden" name="property_id" value="<?php echo $property['property_id']; ?>">
 
         <!-- Editable fields -->
@@ -46,21 +46,15 @@ if (isset($_SESSION['UserID']) && isset($_GET['property_id'])) {
         <label for="city">City:</label><br>
         <input type="text" id="city" name="city" value="<?php echo $property['city']; ?>" required><br><br>
 
-        <label for="state">State:</label><br>
-        <input type="text" id="state" name="state" value="<?php echo $property['state']; ?>" required><br><br>
-
         <label for="country">Country:</label><br>
         <input type="text" id="country" name="country" value="<?php echo $property['country']; ?>" required><br><br>
 
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" required><?php echo $property['description']; ?></textarea><br><br>
 
-        <!-- Other property details you want to edit -->
-
-        <input type="submit" value="Save Changes">
-    </form>
-
-    <a href="manage_properties.php">Back to Manage Properties</a>
+        <input class='btn btn-sm btn-primary'type="submit" value="Save Changes">
+</form>
+        <a class=' btn btn-sm btn-secondary'href="Dashboard.php">Cancel</a>
     
 </body>
 

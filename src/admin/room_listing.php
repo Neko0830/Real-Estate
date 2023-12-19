@@ -66,13 +66,14 @@ $rooms = mysqli_fetch_all($resultRooms, MYSQLI_ASSOC);
                     <td><?php echo $room['room_size']; ?></td>
                     <td><?php echo $room['availability'] ? 'Available' : 'Not Available'; ?></td>
                     <td>
-                        <a class="btn btn-outline btn-primary btn-sm"href="manage_rooms.php?id<?php echo $room['room_id'];?>">Edit</a> |
+                    <a class="btn btn-outline btn-primary btn-sm" href="manage_rooms.php?id=<?php echo $room['room_id'];?>">Edit</a> |
                         <a class="btn btn-outline btn-error btn-sm"href="delete_room.php?id=<?php echo $room['room_id']; ?>">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    <a class='btn btn-success btn-outline border mt-6'href="manage_rooms.php">Add Room</a>
 </body>
 
 </html>

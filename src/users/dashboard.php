@@ -31,12 +31,12 @@ if (isset($_SESSION['UserID'])) {
 
 <body>
     <?php
-    include 'header.html';
+    include 'header.php';
     ?>
     
-    <h2>Listed Properties:</h2>
+    <h2 class='text-lg font-semibold indent-6'>Listed Properties:</h2>
 
-    <div class='grid grid-cols-3 gap-2'>
+    <div class='h-max grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-48 gap-4'>
         <?php
         while ($property = mysqli_fetch_assoc($result)) {
             echo "<div class='card bg-base-100 shadow-xl image-full rounded-sm w-80 h-48 ml-10 mt-6'>";

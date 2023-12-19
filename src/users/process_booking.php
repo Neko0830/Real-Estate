@@ -19,8 +19,8 @@ if (isset($_SESSION['UserID'])) {
         if (!$result) {
             echo "Error processing booking: " . mysqli_error($connection);
         } else {
-            echo "Booking processed successfully!";
-            // Additional actions after successful booking processing, if needed
+            echo "<script>alert('Done');
+            windows.location.href='dashboard.php';</script>";
         }
     } else {
         echo "Invalid request parameters.";
@@ -30,5 +30,3 @@ if (isset($_SESSION['UserID'])) {
     header("Location: ../login.php");
     exit();
 }
-
-?>

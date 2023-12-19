@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input  type="text" id="property_title" name="title" value="<?php echo $propertyTitle ?? ''; ?>" readonly><br><br>
 
         <label for="image">Select Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+        <input class="file-input file-input-bordered w-full max-w-xs" type="file" id="image" name="image" accept="image/*" required><br><br>
 
         <input type="submit" value="Upload">
     </form>

@@ -15,17 +15,19 @@ if (isset($_SESSION['UserID'])) {
             echo "Error fetching property details: " . mysqli_error($connection);
         } else {
             $property = mysqli_fetch_assoc($propertyResult);
-            include 'header.html';
+            include 'header.php';
             echo "<h1>Property Details</h1>";
             echo "<p>Property Name: " . $property['property_name'] . "</p>";
             echo "<p>Description: " . $property['description'] . "</p>";
             // Add more property details as needed
             echo "<form action='process_booking.php' method='POST'>";
             echo "<input type='hidden' name='property_id' value='" . $property['property_id'] . "'>";
-            echo "<input type='date' name='date_from' required>";
-            echo "<input type='date' name='date_to' required>";
-            echo "<input type='number' name='guests' placeholder='Number of guests' required>";
-            echo "<button type='submit' class='btn btn-secondary'>Book Now</button>";
+            echo "<label class='label-text' for='date_from'>Visit Date: </label>";
+            echo "<input class='input input-bordered mt-4' type='date' name='date_from' required><br>";
+            echo "<label class='label-text' for='date_to'>Visit to: </label>";
+            echo "<input class='input input-bordered mt-4' type='date' name='date_to' required><br>";
+            echo "<input class='input input-bordered mt-4' type='number' name='guests' placeholder='Number of guests' required><br>";
+            echo "<button type='submit' class='btn btn-secondary mt-4'>Book Now</button>";
             echo "</form>";
 
             echo "</div>";

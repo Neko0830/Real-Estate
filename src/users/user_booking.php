@@ -68,7 +68,7 @@ include '../conn.php';
                 $ups = mysqli_query($connection, $ups);
                 if ($ups) {
                     echo "<script>alert('Done');
-                     windows.location.href='user_booking.php';</script>";
+                     windows.location.href='dashboard.php';</script>";
                 }
             }
 
