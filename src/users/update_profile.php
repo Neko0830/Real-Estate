@@ -48,7 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Update Profile</title>
     <link rel="stylesheet" href="../../dist/output.css">
 </head>
-
+<?php
+include 'header.html';
+?>
 <body>
     <form action="update_profile.php" method="POST">
         <label for="fullname">Full Name:</label><br>

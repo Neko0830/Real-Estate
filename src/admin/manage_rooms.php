@@ -71,56 +71,77 @@ if ($id) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme='dark'>
 
 <head>
     <meta charset="UTF-8">
     <title><?php echo $id ? 'Edit Room' : 'Add Room'; ?></title>
+    <link rel="stylesheet" href="../../dist/output.css">
 </head>
-
+<?php include 'partials/header.php';?>
 <body>
     <h1><?php echo $id ? 'Edit Room' : 'Add Room'; ?></h1>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        <label for="id">Property:</label>
-        <input type="hidden" name="id" value="<?php echo $room['room_id']; ?>">
-        <select name="property_id" id="property_id">
-            <?php
-            // List properties owned by the logged-in user
-            $sql = "SELECT * FROM properties WHERE admin_id = ?";
-            $stmt = $connection->prepare($sql);
-            $stmt->execute([$_SESSION['UserID']]);
-            $properties = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            foreach ($properties as $property) : ?>
-                <option value="<?php echo $property['property_id']; ?>" <?php if ($property['property_id'] == $room['property_id']) : ?>selected<?php endif; ?>><?php echo $property['property_name']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label for="type">Room Type:</label>
-        <select name="type" id="type">
-            <option value="Single" <?php if ($room['type'] === "Single") echo "selected"; ?>>Single Room</option>
-            <option value="Double" <?php if ($room['type'] === "Double") echo "selected"; ?>>Double Room</option>
-            <option value="Family Suite" <?php if ($room['type'] === "Family Suite") echo "selected"; ?>>Family Suite</option>
-            <option value="Other" <?php if ($room['type'] !== "Single" && $room['type'] !== "Double" && $room['type'] !== "Family Suite") echo "selected"; ?>>Other</option>
-        </select>
-        <label for="price">Price (Daily)</label>
-        <input required type="number" name="price" id="price" step="0.01" value="<?php echo $room['price']; ?>">
-
-        <label for="size">Size (m²):</label>
-        <input type="number" name="size" id="size" value="<?php echo $room['size']; ?>">
-        
-        <label for="room_number">Room Number:</label>
-        <input required type="number" name="room_number" id="room_number" value="<?php echo $room['room_number']; ?>">
-
-        <label for="availability">Is Available?</label>
-        <input type="checkbox" name="availability" id="availability" <?php if ($room['availability']) : ?>checked<?php endif; ?>>
-
-        <label for="image">Image URL:</label>
-        <input type="text" name="image" id="image" value="<?php echo $room['image']; ?>">
-
-        <label for="description">Description:</label><br>
-        <textarea name="description" id="description"><?php echo $room['description']; ?></textarea>
-
-        <button type="submit"><?php echo $id ? 'Update' : 'Add'; ?> Room</button>
+        <div class="mt-4">
+            <label for="id">Property:</label>
+            <input type="hidden" name="id" value="<?php echo $room['room_id']; ?>">
+            <select name="property_id" id="property_id">
+                <?php
+                // List properties owned by the logged-in user
+                $sql = "SELECT * FROM properties WHERE admin_id = ?";
+                $stmt = $connection->prepare($sql);
+                $stmt->execute([$_SESSION['UserID']]);
+                $properties = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                foreach ($properties as $property) : ?>
+                    <option value="<?php echo $property['property_id']; ?>" <?php if ($property['property_id'] == $room['property_id']) : ?>selected<?php endif; ?>><?php echo $property['property_name']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <br>
+        <div class="mt-2">
+            <label for="type">Room Type:</label>
+            <select name="type" id="type">
+                <option value="Single" <?php if ($room['type'] === "Single") echo "selected"; ?>>Single Room</option>
+                <option value="Double" <?php if ($room['type'] === "Double") echo "selected"; ?>>Double Room</option>
+                <option value="Family Suite" <?php if ($room['type'] === "Family Suite") echo "selected"; ?>>Family Suite</option>
+                <option value="Other" <?php if ($room['type'] !== "Single" && $room['type'] !== "Double" && $room['type'] !== "Family Suite") echo "selected"; ?>>Other</option>
+            </select>
+            <br>
+            <br>
+        </div>
+        <div class="mt-4">
+            <label for="price">Price (Daily)</label>
+            <input required type="number" name="price" id="price" step="0.01" value="<?php echo $room['price']; ?>"><br>
+        </div>
+        <br>
+        <div class="mt-4">
+            <label for="size">Size (m²):</label>
+            <input type="number" name="size" id="size" value="<?php echo $room['size']; ?>">
+            <br>
+            <br>
+        </div>
+        <div class="mt-4">
+            <label for="room_number">Room Number:</label>
+            <input required type="number" name="room_number" id="room_number" value="<?php echo $room['room_number']; ?>">
+        </div>
+        <br>
+        <div class="mt-4">
+            <label for="availability">Is Available?</label>
+            <input type="checkbox" name="availability" id="availability" <?php if ($room['availability']) : ?>checked<?php endif; ?>>
+        </div>
+        <br>
+        <div class="mt-4">
+            <label for="image">Image URL:</label>
+            <input type="text" name="image" id="image" value="<?php echo $room['image']; ?>">
+        </div>
+        <br>
+        <div class="mt-4">
+            <label for="description">Description:</label><br>
+            <textarea name="description" id="description"><?php echo $room['description']; ?></textarea>
+        </div>
+        <button class='btn btn-primary'type="submit"><?php echo $id ? 'Update' : 'Add'; ?> Room</button>
     </form>
+    
 </body>
 
 </html>

@@ -5,9 +5,10 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
       <li><a href="dashboard.php">Dashboard</a></li>
+      <li><a href="room_listing.php">Rooms</a></li>
       <li><a href="../manage_properties.php">Manage Properties</a></li>
       <li>
-        <a class='underline'href="../../logout.php">Logout</a>
+        <a class='underline'href="../logout.php">Logout</a>
       </li>
     </ul>
   </div>
